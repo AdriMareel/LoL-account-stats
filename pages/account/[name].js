@@ -6,7 +6,7 @@ import styles from "../../styles/Account.module.css";
 
 
 export async function getServerSideProps({ params }) {
-	let API_KEY = "RGAPI-5aa800d4-4845-4d34-82a6-e55c14192607";
+	let API_KEY = "";
 
 	let nonEncodedName = params.name;
 	let name = encodeURI(nonEncodedName);
