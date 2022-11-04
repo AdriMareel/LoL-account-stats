@@ -1,0 +1,26 @@
+.wrapper{
+	width: 75%;
+	margin: 75px auto 0px;
+	padding: 10px;
+	display: flex;
+}
+
+.ranked_infos{
+	font-size: 18px;
+	padding: 10px;
+	background:rgb(188, 188, 188);
+	width: 40%;
+	border-radius: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;	
+}
+
+.ranked_stats{
+	background:rgb(188, 188, 188);
+	width: 100%;
+	margin-left: 20px;
+	padding: 10px;
+	border-radius: 10px;
+
+}
