@@ -1,26 +1,52 @@
 .wrapper{
-	width: 75%;
-	margin: 75px auto 0px;
+	width: 85%;
+	margin: 0px auto 0px;
 	padding: 10px;
-	display: flex;
+	display: grid;
+	grid-template-columns: 1fr 3fr;
 }
 
 .ranked_infos{
 	font-size: 18px;
+	margin: 20px;
 	padding: 10px;
+	height:130px;
 	background:rgb(188, 188, 188);
-	width: 40%;
-	border-radius: 10px;
+	border-radius: 4px;
 	display: flex;
 	align-items: center;
-	justify-content: space-between;	
+	justify-content: space-between;
+	grid-column: 1;
+	grid-row: 1;
 }
 
-.ranked_stats{
-	background:rgb(188, 188, 188);
+.ranked_games{
+	margin: 20px;
 	width: 100%;
-	margin-left: 20px;
-	padding: 10px;
 	border-radius: 10px;
+	grid-column: 2;
+	grid-row: 1/5;
+}
 
+.ranked_games li{
+	border-radius: 5px;
+	margin-bottom: 10px;
+	height: 150px;
+	list-style: none;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.gameInfos{
+	display: flex;
+	align-items: center;
+}
+
+.bg-win{
+	background-color: green;
+}
+
+.bg-lose{
+	background-color: red;
 }

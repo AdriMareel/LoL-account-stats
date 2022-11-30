@@ -11,12 +11,26 @@
 }
 
 .mainInput{
+	display: flex;
+	margin: auto;
+	align-items: center;
+	width: fit-content;
 	padding: 10px;
 	border: 1px solid rgb(116, 116, 116, 0.5);
 	border-radius: 200px;
-	width: 30%;
 	font-weight: bold;
 	outline: none;
-	margin: 5px;
+}
+
+.mainInput input{
+	outline: none;
+	border: none;
+	width: 400px;
+	font-size: 16px;
+}
+
+.mainInput button{
+	background-color: white;
+	border: none;
 }
 

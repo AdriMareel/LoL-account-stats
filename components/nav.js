@@ -11,7 +11,7 @@ export default function Nav() {
 				</li>
 				<li>
 					<Link href="/stats" legacyBehavior>
-						<a>Statistiques</a>
+						<a>Statistics</a>
 					</Link>
 				</li>
 				<li>
