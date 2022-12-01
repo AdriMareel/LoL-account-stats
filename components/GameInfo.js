@@ -3,7 +3,6 @@ import Link from 'next/link'
 export default function GameInfo(props){
 
     let gameInfos = props.props;
-    console.log(gameInfos);
 
     let playerGameData;
     gameInfos.element.info.participants.map(participant => {
@@ -23,14 +22,34 @@ export default function GameInfo(props){
     //bg color win or lose
     if(playerGameData.win) cssClass = "gameInfos bg-win"
     else cssClass = "gameInfos bg-lose"
+
+	//display items
+	let items = [];
+	for(let i = 0; i < 7; i++){
+		if(playerGameData[`item${i}`] != 0){
+			items.push(playerGameData[`item${i}`]);
+		}
+	}
     
 return(
     <li className={cssClass}>
         <div>
             <p>{playerGameData.championName}</p>
-            <p></p>
+            <p>{}</p>
             </div>
-        <div>PERSO STUFF</div>
+        <div>
+			<p>{playerGameData.kills} / {playerGameData.deaths} / {playerGameData.assists}</p>
+			<p>{playerGameData.totalMinionsKilled} CS</p>
+			<div className='stuff'>
+				{
+					//display items
+					items.map(item =>
+						<img src={`http://ddragon.leagueoflegends.com/cdn/11.6.1/img/item/${item}.png`} alt="item"></img>
+					)
+
+				}
+			</div>
+		</div>
         <div>RECAP TEAM</div>
     </li>
 )

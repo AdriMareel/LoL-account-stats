@@ -60,7 +60,7 @@ export async function getServerSideProps({ params }) {
 
 	//getMatchesIds
 	const puuid = summonerInfos.puuid;
-	let query_third = await fetch(`https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/${puuid}/ids?start=0&api_key=${API_KEY}`);
+	let query_third = await fetch(`https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/${puuid}/ids?start=0&count=2&api_key=${API_KEY}`);
 	let matchesIds = await query_third.json()
 	console.log("matchesIds");
 	console.table(matchesIds);
