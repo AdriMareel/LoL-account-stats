@@ -44,7 +44,7 @@ return(
 				{
 					//display items
 					items.map(item =>
-						<img src={`http://ddragon.leagueoflegends.com/cdn/11.6.1/img/item/${item}.png`} alt="item"></img>
+						<img className={item} src={`http://ddragon.leagueoflegends.com/cdn/11.6.1/img/item/${item}.png`} alt="item"></img>
 					)
 
 				}

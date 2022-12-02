@@ -6,16 +6,58 @@ import styles from "../../styles/Account.module.css";
 import GameInfo from "../../components/GameInfo";
 
 export default function Profile(props){
-	
-	let summonerInfos = props.summonerInfos;
-	let summonerSoloQInfos = props.summonerSoloQInfos;
-	let summonerFlexQInfos = props.summonerFlexQInfos;
-	let matchesInfos = props.matchesInfos;
 
-	let rankedEmblemSrc = `/images/ranked-emblems/Emblem_${summonerSoloQInfos.tier}.png`
+	let summonerInfos = props.summonerInfos;
+
+	//create an async function
+	async function getSummonerInfos(){
+		//get summonerRankedInfos
+		const encryptedSummonerId = summonerInfos.id;
+		let query_second = await fetch(`https://euw1.api.riotgames.com/lol/league/v4/entries/by-summoner/${encryptedSummonerId}?api_key=${API_KEY}`);
+		let summonerRankedInfos = await query_second.json();
+		console.log("summonerRankedInfos");
+		console.table(summonerRankedInfos);
+
+		//getMatchesIds
+		const puuid = summonerInfos.puuid;
+		let query_third = await fetch(`https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/${puuid}/ids?start=0&count=2&api_key=${API_KEY}`);
+		let matchesIds = await query_third.json()
+		console.log("matchesIds");
+		console.table(matchesIds);
+
+		//getMatchesData
+		let matchesInfos = new Array();
+		for (const element of matchesIds) {
+			let query_fourth = await fetch(`https://europe.api.riotgames.com/lol/match/v5/matches/${element}?api_key=${API_KEY}`);
+			let jsonTmp = await query_fourth.json();
+			matchesInfos.push(jsonTmp);
+		}
+		console.log("matchesInfos");
+		console.table(matchesInfos);
+
+
+		//get data for front side
+		let summonerSoloQInfos;
+		let summonerFlexQInfos;
+		summonerRankedInfos.forEach(element => {
+			if(element.queueType == 'RANKED_SOLO_5x5')  summonerSoloQInfos = element;
+			if(element.queueType == 'RANKED_FLEX_SR')  summonerFlexQInfos = element;
+		});
+
+		let rankedEmblemSrc = `/images/ranked-emblems/Emblem_${summonerSoloQInfos.tier}.png`
+
+
+		return Promise("data feteched");
+	}
 
 	return(
+
+		//await getSummonerInfos
+		
 		<>
+			{getSummonerInfos().then((value) => {
+				console.log(value);
+			})}
 			<Nav></Nav>
 			<div className={styles.wrapper}>
 				<div className={styles.ranked_infos}>
@@ -41,7 +83,7 @@ export default function Profile(props){
 }
 
 export async function getServerSideProps({ params }) {
-	let API_KEY = "RGAPI-22372f5c-5c62-4398-b426-479266d84f26";
+	let API_KEY = "RGAPI-499066a1-aa38-488f-a30a-93d92dc3db58";
 
 	//get summonerInfos
 	let nonEncodedName = params.name;
@@ -51,45 +93,9 @@ export async function getServerSideProps({ params }) {
 	console.log("summonerInfos");
 	console.table(summonerInfos);
 
-	//get summonerRankedInfos
-	const encryptedSummonerId = summonerInfos.id;
-	let query_second = await fetch(`https://euw1.api.riotgames.com/lol/league/v4/entries/by-summoner/${encryptedSummonerId}?api_key=${API_KEY}`);
-	let summonerRankedInfos = await query_second.json();
-	console.log("summonerRankedInfos");
-	console.table(summonerRankedInfos);
-
-	//getMatchesIds
-	const puuid = summonerInfos.puuid;
-	let query_third = await fetch(`https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/${puuid}/ids?start=0&count=2&api_key=${API_KEY}`);
-	let matchesIds = await query_third.json()
-	console.log("matchesIds");
-	console.table(matchesIds);
-
-	//getMatchesData
-	let matchesInfos = new Array();
-	for (const element of matchesIds) {
-		let query_fourth = await fetch(`https://europe.api.riotgames.com/lol/match/v5/matches/${element}?api_key=${API_KEY}`);
-		let jsonTmp = await query_fourth.json();
-		matchesInfos.push(jsonTmp);
-	}
-	console.log("matchesInfos");
-	console.table(matchesInfos);
-
-
-	//get data for front side
-	let summonerSoloQInfos;
-	let summonerFlexQInfos;
-	summonerRankedInfos.forEach(element => {
-		if(element.queueType == 'RANKED_SOLO_5x5')  summonerSoloQInfos = element;
-		if(element.queueType == 'RANKED_FLEX_SR')  summonerFlexQInfos = element;
-	});
-
   	return { 
 		props:  {
-			"summonerInfos" : summonerInfos,
-			"summonerSoloQInfos" : summonerSoloQInfos,
-			"summonerFlexQInfos" : summonerFlexQInfos,
-			"matchesInfos" : matchesInfos
+			"summonerInfos" : summonerInfos
 		}
   	};
 }

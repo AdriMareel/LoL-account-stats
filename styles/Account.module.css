@@ -43,10 +43,11 @@
 	align-items: center;
 }
 
-.bg-win{
-	background-color: green;
+.stuff{
+	
 }
 
-.bg-lose{
-	background-color: red;
+.item{
+	width: 25px;
 }
+
